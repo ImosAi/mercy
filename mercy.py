@@ -1,4 +1,4 @@
-# autopsy.py
+# mercy.py
 
 import yaml
 import os
@@ -9,13 +9,13 @@ def load_config(path):
         return yaml.safe_load(f)
 
 def main():
-    print("🚀 autopsy — Otonom Hata Düzeltme Sistemi")
+    print("🤍 mercy — Otonom Hata Düzeltme Sistemi")
     print("=" * 50)
 
-    config_path = "config/autopsy.yaml"
+    config_path = "config/mercy.yaml"
     if not os.path.exists(config_path):
         print(f"⚠️  Yapılandırma dosyası bulunamadı: {config_path}")
-        print("Lütfen config/autopsy.yaml.example dosyasını kopyalayın ve düzenleyin.")
+        print("Lütfen config/mercy.yaml.example dosyasını kopyalayın ve düzenleyin.")
         return
 
     config = load_config(config_path)
@@ -27,7 +27,7 @@ def main():
         "message": "TypeError: 'NoneType' object is not iterable",
         "stack_trace": """
 File "/app/service.py", line 42, in process_data
-    for item in data:
+    for item in 
 TypeError: 'NoneType' object is not iterable
         """.strip()
     }
@@ -46,13 +46,13 @@ TypeError: 'NoneType' object is not iterable
 -    for item in data:
 +    if data is None:
 +        return []
-+    for item in data:
++    for item in 
          process_item(item)
 """
     print("   → Patch oluşturuldu.")
 
     print("\n4. 📂 Git operasyonları simüle ediliyor...")
-    branch_name = "autopsy-fix-20251109-123456"
+    branch_name = "mercy-fix-20251109-123456"
     print(f"   → Yeni branch: {branch_name}")
     print(f"   → Yama commit edildi.")
 
