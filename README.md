@@ -1,10 +1,10 @@
-# 🕵️‍♂️ autopsy
+# 🤍 mercy
 
 **Otonom Hata Düzeltme Sistemi — Herkes Kullanabilir, Dağıtamaz.**
 
-`autopsy`, hata raporları (Sentry, GitHub Issues, Loglar vs.) geldiğinde, bunları analiz eden, kod yaması üreten, test eden ve bir Pull Request açarak geliştiriciye sunan **açık kaynak, modüler ve AI destekli bir otomasyon sistemidir**.
+`mercy`, hata raporları (Sentry, GitHub Issues, Loglar vs.) geldiğinde, bunları analiz eden, kod yaması üreten, test eden ve bir Pull Request açarak geliştiriciye sunan **açık kaynak, modüler ve AI destekli bir otomasyon sistemidir**.
 
-> **"Hata geldi. Kod düzeltildi. PR açıldı. Sen uyuyorsun."**
+> **"Hata geldi. Merhamet et. Düzelt. Yeniden başlat."**
 
 ---
 
@@ -25,7 +25,7 @@ Bu proje **[Fair Source License v1.0](LICENSE)** ile lisanslanmıştır:
 
 > 🔹 **Herkes** kullanabilir (bireysel, akademik, küçük ekipler).  
 > 🔹 **5+ kişilik şirketler**, bu kodu kendi ticari ürünlerinde **dağıtamaz**.  
-> 🔹 Ticari kullanım için: [license@autopsy.dev](mailto:license@autopsy.dev)
+> 🔹 Ticari kullanım için: [license@mercy.dev](mailto:license@mercy.dev)
 
 ---
 
@@ -33,15 +33,15 @@ Bu proje **[Fair Source License v1.0](LICENSE)** ile lisanslanmıştır:
 
 ```bash
 # 1. Repo klonla
-git clone https://github.com/yourusername/autopsy.git
-cd autopsy
+git clone https://github.com/yourusername/mercy.git
+cd mercy
 
 # 2. Gerekli kütüphaneleri kur
 pip install -r requirements.txt
 
 # 3. Yapılandırmayı düzenle
-cp config/autopsy.yaml.example config/autopsy.yaml
-nano config/autopsy.yaml  # LLM ve giriş kaynağını ayarla
+cp config/mercy.yaml.example config/mercy.yaml
+nano config/mercy.yaml  # LLM ve giriş kaynağını ayarla
 
 # 4. Çalıştır
-python autopsy.py
+python mercy.py
