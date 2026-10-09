@@ -18,6 +18,16 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--history", action="store_true")
     parser.add_argument("--limit", type=int, default=10)
     parser.add_argument("--test-status", choices=("passed", "failed", "not_run"))
+    parser.add_argument(
+        "--export-memory",
+        type=Path,
+        help="Evrensel hafızayı JSON olarak dışa aktarır.",
+    )
+    parser.add_argument(
+        "--clear-memory",
+        action="store_true",
+        help="Tüm hafızayı temizler; geri alınamaz.",
+    )
     return parser
 
 
@@ -26,6 +36,8 @@ def main() -> int:
     args = parser.parse_args()
     if bool(args.feedback) != bool(args.outcome):
         parser.error("--feedback ve --outcome birlikte kullanılmalıdır.")
+    if args.export_memory and args.clear_memory:
+        parser.error("--export-memory ve --clear-memory birlikte kullanılamaz.")
 
     config = load_config(args.config)
     database = Path(config["memory"]["database"])
@@ -37,6 +49,22 @@ def main() -> int:
         if args.feedback:
             brain.record_feedback(args.feedback, args.outcome, args.note)
             print(f"Geri bildirim kaydedildi: {args.feedback} → {args.outcome}")
+            return 0
+
+        if args.clear_memory:
+            brain.clear_memory()
+            print("Hafıza temizlendi.")
+            return 0
+
+        if args.export_memory:
+            args.export_memory.parent.mkdir(parents=True, exist_ok=True)
+            payload = brain.export_memory()
+            with args.export_memory.open("w", encoding="utf-8") as handle:
+                import json
+
+                json.dump(payload, handle, ensure_ascii=False, indent=2)
+                handle.write("\n")
+            print(f"Hafıza dışa aktarıldı: {args.export_memory}")
             return 0
 
         if args.history:

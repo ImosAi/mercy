@@ -94,6 +94,58 @@ class LayeredBrain:
     def close(self) -> None:
         self._connection.close()
 
+    def export_memory(self) -> dict[str, object]:
+        rows = self._connection.execute(
+            """
+            SELECT runs.id, runs.signature, runs.source, runs.error_type,
+                   runs.message, runs.stack_trace, runs.test_status,
+                   runs.action, runs.confidence, runs.evidence_count,
+                   runs.acceptance_rate, runs.rationale, runs.created_at,
+                   feedback.outcome AS feedback_outcome,
+                   feedback.note AS feedback_note,
+                   feedback.created_at AS feedback_created_at
+            FROM runs
+            LEFT JOIN feedback ON feedback.run_id = runs.id
+            ORDER BY runs.created_at ASC, runs.id ASC
+            """
+        ).fetchall()
+        runs = []
+        for row in rows:
+            runs.append(
+                {
+                    "run_id": row["id"],
+                    "signature": row["signature"],
+                    "source": row["source"],
+                    "error_type": row["error_type"],
+                    "message": row["message"],
+                    "stack_trace": row["stack_trace"],
+                    "test_status": row["test_status"],
+                    "action": row["action"],
+                    "confidence": row["confidence"],
+                    "evidence_count": row["evidence_count"],
+                    "acceptance_rate": row["acceptance_rate"],
+                    "rationale": row["rationale"],
+                    "created_at": row["created_at"],
+                    "feedback": {
+                        "outcome": row["feedback_outcome"],
+                        "note": row["feedback_note"],
+                        "created_at": row["feedback_created_at"],
+                    }
+                    if row["feedback_outcome"] is not None
+                    else None,
+                }
+            )
+        return {
+            "version": 1,
+            "exported_at": datetime.now(timezone.utc).isoformat(),
+            "runs": runs,
+        }
+
+    def clear_memory(self) -> None:
+        self._connection.execute("DELETE FROM feedback")
+        self._connection.execute("DELETE FROM runs")
+        self._connection.commit()
+
     def recent_runs(self, limit: int = 10) -> list[RunSummary]:
         if not 1 <= limit <= 100:
             raise ValueError("Geçmiş limiti 1 ile 100 arasında olmalıdır.")

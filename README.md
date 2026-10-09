@@ -62,6 +62,14 @@ python mercy.py --history
 python mercy.py --history --limit 25
 ```
 
+Hafızayı JSON olarak dışa aktarmak veya temizlemek için:
+
+```bash
+python mercy.py --export-memory ./exports/mercy-memory.json
+python mercy.py --clear-memory
+```
+
+`--clear-memory` işlemi geri alınamaz; yalnızca yerel hafıza verisini siler.
 Yapılandırmayı başka konumdan vermek için `--config PATH` kullanılır. Veritabanı
 yolu göreliyse yapılandırma dosyasının bulunduğu dizine göre çözülür.
 

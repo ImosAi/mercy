@@ -25,8 +25,8 @@ Bu dosya, depoda gerçekten bulunan işlevlerin ve kalan işlerin özetidir.
 - [ ] Gerçek test runner, zaman aşımı ve kaynak sınırları.
 - [ ] Açık insan-onayı adımı ve onay durumunun kalıcı takibi.
 - [ ] Onay sonrası Git branch/commit ve GitHub Pull Request adaptörü.
-- [ ] Hafıza dışa aktarma/silme, saklama süresi ve geri yükleme araçları.
-- [ ] Hafıza temizleme ve saklama süresi yönetimi.
+- [x] Hafıza dışa aktarma/silme, saklama süresi ve geri yükleme araçları.
+- [x] Hafıza temizleme ve saklama süresi yönetimi.
 - [ ] CI, statik analiz, desteklenen Python sürümleri için otomatik doğrulama.
 
 ## Önerilen sonraki adımlar

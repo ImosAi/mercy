@@ -97,6 +97,30 @@ class LayeredBrainTests(unittest.TestCase):
                     brain.recent_runs(limit)
         brain.close()
 
+    def test_export_memory_includes_runs_and_feedback(self):
+        brain = LayeredBrain(self.database)
+        decision = brain.record_run(self.incident, "passed")
+        brain.record_feedback(decision.run_id, "accepted", "onay")
+
+        exported = brain.export_memory()
+        brain.close()
+
+        self.assertEqual(exported["version"], 1)
+        self.assertEqual(len(exported["runs"]), 1)
+        self.assertEqual(exported["runs"][0]["message"], self.incident.message)
+        self.assertEqual(exported["runs"][0]["feedback"]["outcome"], "accepted")
+        self.assertEqual(exported["runs"][0]["feedback"]["note"], "onay")
+
+    def test_clear_memory_removes_all_runs_and_feedback(self):
+        brain = LayeredBrain(self.database)
+        decision = brain.record_run(self.incident, "passed")
+        brain.record_feedback(decision.run_id, "rejected")
+
+        brain.clear_memory()
+        self.assertEqual(brain.recent_runs(), [])
+        self.assertEqual(brain.export_memory()["runs"], [])
+        brain.close()
+
 
 if __name__ == "__main__":
     unittest.main()
