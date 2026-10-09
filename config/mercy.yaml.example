@@ -1,0 +1,14 @@
+input:
+  source: mock
+  incident:
+    error_type: TypeError
+    message: "'NoneType' object is not iterable"
+    stack_trace: |
+      File "/app/service.py", line 42, in process_data
+          for item in data
+
+memory:
+  database: ../data/mercy.sqlite3
+
+simulation:
+  test_status: not_run

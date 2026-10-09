@@ -1,0 +1,23 @@
+# Local runtime state and private configuration
+data/
+config/mercy.yaml
+.env
+.env.*
+
+# Python environments, caches, and generated output
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Editor and operating-system noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
